@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 project (OXYGINESOUND)
 
+find_package( OpenAL REQUIRED )
+
 set(OXYGINESOUND_INCLUDE_DIRS 
 	${CMAKE_CURRENT_SOURCE_DIR}/src
 	${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tremor/Tremor
@@ -91,7 +93,7 @@ else(EMSCRIPTEN)
 
 	if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	
-		set(OXYGINESOUND_LIBS oxygine-sound -lopenal tremor -logg)
+		set(OXYGINESOUND_LIBS ${OpenAL_LIBS} oxygine-sound tremor -logg)
 
 	else()
 
@@ -117,7 +119,7 @@ include_directories(${OXYGINESOUND_INCLUDE_DIRS})
 
 
 
-target_link_libraries(oxygine-sound -lopenal)
+target_link_libraries(oxygine-sound ${OPENAL_LIBRARY})
 target_link_libraries(oxygine-sound -logg)
 
 
